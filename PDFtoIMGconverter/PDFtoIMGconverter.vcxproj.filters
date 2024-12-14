@@ -18,8 +18,11 @@
     <ClCompile Include="PDFtoIMGconverter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="popplerHeader.h">
+    <ClCompile Include="PTI_function.h">
       <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PTI_function.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

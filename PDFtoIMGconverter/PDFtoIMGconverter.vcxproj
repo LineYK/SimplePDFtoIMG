@@ -131,7 +131,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="PDFtoIMGconverter.cpp" />
-    <ClCompile Include="popplerHeader.h" />
+    <ClCompile Include="PTI_function.h" />
+    <ClCompile Include="PTI_function.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
