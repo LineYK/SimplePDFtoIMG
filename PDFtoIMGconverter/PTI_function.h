@@ -10,7 +10,12 @@
 extern "C" {
 #endif
 
-void process_pdf(uint8_t* data, size_t len);
+using namespace std;
+using namespace poppler;
+
+document& process_pdf(const string& pdf_path);
+document& process_pdf_raw_data(uint8_t* data, size_t len);
+void process_page(document& doc, int pageNum);
 
 #ifdef _cplusplus
 }

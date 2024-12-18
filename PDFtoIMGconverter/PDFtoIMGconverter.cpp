@@ -1,10 +1,6 @@
-﻿#include <iostream>
-#include <string>
-#include <locale>
+﻿#include <locale>
 #include <codecvt>
-#include "popplerHeader.h"
-
-using namespace std;
+#include "PTI_function.cpp"
 
 string uft16_to_utf8(const wstring& utf16)
 {
@@ -23,35 +19,24 @@ int main()
 
 	wcout << L"PDF 파일 경로: " << pdfPath << endl;
 
-	poppler::document* doc = poppler::document::load_from_file(pdfPath_utf8);
-	if (!doc || doc->is_locked())
+	try
 	{
-		cout << "Error: PDF 파일이 유효하지 않거나 잠겨있습니다." << endl;
+		document& doc = process_pdf(pdfPath_utf8);
+		int numPages = doc.pages();
+		cout << "총 페이지 수: " << numPages << endl;
+
+		for (int i = 0; i < numPages; i++)
+		{
+			process_page(doc, i);
+		}
+
+		delete &doc;
+	}
+	catch (const char* msg)
+	{
+		cout << msg << endl;
 		return 1;
 	}
-
-	int numPages = doc->pages();
-	cout << "총 페이지 수: " << numPages << endl;
-
-	for (int i = 0; i < numPages; i++)
-	{
-		poppler::page* pdfPage = doc->create_page(i);
-
-		double width = pdfPage->page_rect().width();
-		double height = pdfPage->page_rect().height();
-
-		poppler::page_renderer renderer;
-		poppler::image img = renderer.render_page(pdfPage, width, height);
-
-		string imgPath = pdfPath_utf8.substr(0, pdfPath_utf8.find_last_of('.')) + "_" + to_string(i + 1) + ".png";
-		cout << "이미지 경로: " << imgPath << endl;
-
-		cout << i + 1 << "번째 이미지 생성 중" << endl;
-		img.save("C:\\" + to_string(i) + ".png", "png");
-		cout << i + 1 << "번째 이미지 생성 완료" << endl;
-	}
-
-	delete doc;
 
     return 0;
 }
